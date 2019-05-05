@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!--css-->
+    <link rel="stylesheet" href="./assets/css/main.css">
+</head>
+
+<body>
+
+    <div ng-app="app" ng-controller="myFlight">
+        <div class="container">
+            <div class="title-card">
+                <h1>My Flight</h1>
+                <h3>Select a destination:</h3>
+                <select ng-model="selectedName" name="destinationList" id="destinationList"
+                    ng-change="updateTable(destinationList.value)"
+                    ng-options="destination for destination in destinations">
+                    <option value="" disabled selected>Select</option>
+                </select>
+
+                <div class="main-card">
+                    <table class="table" id="availableFlight">
+                        <thead>
+                            <tr>
+                                <th>Destination</th>
+                                <th>company </th>
+                                <th>class </th>
+                                <th>price </th>
+                                <th>airMiles </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="flight in flights">
+                                <td>{{flight.destination}}</td>
+                                <td>{{flight.company}}</td>
+                                <td>{{flight.class}}</td>
+                                <td>{{flight.price | currency:"£"}}</td>
+                                <td>{{flight.airMiles}}</td>
+                                <td><a ng-click="selectedFlight(flight)"><i class="fas fa-long-arrow-alt-right"></i> go!</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h2>Flight Selected
+                        <h5>{{flightSummary.destination}}</h5>
+                        <p>Company: {{flightSummary.company}}</p><span>how many passengers : </span>
+                        <input id="number" min="1" type="number" ng-model="howMany" ng-change="updatePrice()" />
+                        <p>total price {{priceTotal |currency:"£"}}</p>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        angular.module("app", []).controller("myFlight", function ($scope) {
+
+
+            // 1 - Create an array with the name '$scope.destinations'. This array must contain at least 3 of your favorite holiday destinations 
+            $scope.destinations = ['Vancouver', 'Sydney', 'Auckland', 'Denver'];
+
+            // 2 - Populate the dropdown list with the id of "destinationList" in the Pug file  with the cities from your $scope.destinations array.
+
+            // This was already done with the ng-options loop?
+
+
+            // 3 - Create an array of objects named '$scope.flights' with the following properties : company / destination/ class / price / airMiles. Create a minimum of 10 objects within the array. The destination must match whatever is in the $scope.destinations array
+            //I made it empty so I could refer to the full list and update the selected flights by pushing to the empty one.
+            $scope.flights = [];
+            //full list
+            $scope.allFlights = [
+                {
+                    company: 'British Airways',
+                    destination: 'Denver',
+                    class: 'Buisness',
+                    price: 894.00,
+                    airMiles: 673
+                },
+                {
+                    company: 'Virgin',
+                    destination: 'Denver',
+                    class: 'Economy',
+                    price: 821.00,
+                    airMiles: 890
+                },
+                {
+                    company: 'British Airways',
+                    destination: 'Denver',
+                    class: 'Buisness',
+                    price: 890.00,
+                    airMiles: 669
+                },
+                {
+                    company: 'EasyJet',
+                    destination: 'Sydney',
+                    class: 'Economy',
+                    price: 1234.32,
+                    airMiles: 56
+                },
+                {
+                    company: 'Virgin',
+                    destination: 'Sydney',
+                    class: 'Buisness',
+                    price: 1346.50,
+                    airMiles: 1253
+                },
+                {
+                    company: 'British Airways',
+                    destination: 'Sydney',
+                    class: 'Economy',
+                    price: 999.99,
+                    airMiles: 657
+                },
+                {
+                    company: 'EasyJet',
+                    destination: 'Auckland',
+                    class: 'Economy',
+                    price: 1434.65,
+                    airMiles: 545
+                },
+                {
+                    company: 'EasyJet',
+                    destination: 'Vancouver',
+                    class: 'Economy',
+                    price: 657.44,
+                    airMiles: 666
+                },
+                {
+                    company: 'British Airways',
+                    destination: 'Vancouver',
+                    class: 'Buisness',
+                    price: 704.99,
+                    airMiles: 343
+                },
+                {
+                    company: 'Virgin',
+                    destination: 'Vancouver',
+                    class: 'Buisness',
+                    price: 724.33,
+                    airMiles: 450
+                }
+            ];
+
+            //4 - Create a function named '$scope.updateTable' that is used in the pug file on ng-change in the select Drop down. This function needs to update the table (id = availableFlight) to show a list of all flights where the destination matches the one selected from the dropdown list.
+            $scope.updateTable = function () {
+                //resets array if previously used
+                $scope.flights = [];
+                //loop through full list of flights
+                for (var i = 0; i < $scope.allFlights.length; i++) {
+                    //push the matching flight objects into the flights array so it can be displayed using angular expressions
+                    if ($scope.allFlights[i].destination == $scope.selectedName) {
+                        $scope.flights.push($scope.allFlights[i]);
+                    }
+                }
+                //NOTE: Having spent only a couple hours learning angular I imagine theres a more elegant angular based solution but I haven't
+                //      come accross it just yet so just decided to solve it using vanilla js.
+            }
+
+            //5 -Create a function called 'calcPrice' that takes 2 parameters and multiplies them to return the price
+            function calcPrice(a, b) {
+                return a * b;
+            }
+
+            //6 -Create a function called '$scope.updatePrice' to update the price of the flight (it should call the calcPrice function).This function is run when the input with id 'number' is changed (see pug file  ng-change='updatePrice()') 
+            $scope.updatePrice = function () {
+                //updates the binded value in total price segment on change
+                $scope.priceTotal = calcPrice($scope.howMany, $scope.flightSummary.price);
+            }
+
+            //7 - Create a function that will display the flight you've selected from the table by clicking on the arrow in the far right column (ng-click='selectedFlight(flight)'. Remember to call the updatePrice function from above.
+            $scope.selectedFlight = function (flight) {
+                //creates a local object with the selected flight details that is the accessed from the html.
+                $scope.flightSummary = flight;
+                //recalls updateprice function for any new flight selections 
+                $scope.updatePrice();
+                //style the revealed h5
+                $("h5").css("background-color", "limegreen");
+            }
+
+
+        });
+
+ //8 - As you can see no styles have been applied to the page. Use Boostrap and/or css to make the page look beautiful!!
+       
+ //Good Luck!!
+
+
+    </script>
+</body>
+
+</html>

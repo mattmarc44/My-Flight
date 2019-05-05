@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Serif+Pro');
+
+        html,
+        body {
+            font-family: 'Source Serif Pro', serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: block;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #182d40;
+        }
+
+        /*title section*/
+        .title-card {
+            background-image: url(https://images.pexels.com/photos/2007401/pexels-photo-2007401.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+            background-size: cover;
+            height: 100vh;
+        }
+
+        .title-card h1 {
+            padding: 2rem 0;
+            margin: 0;
+            font-size: 4rem;
+            color: #07047b;
+            text-shadow: 1px 2px 8px aliceblue;
+        }
+        
+        .title-card h3 {
+            color: #07047b;
+            text-shadow: 1px 2px 4px aliceblue;
+        }
+
+        .title-card select {
+            border-top-left-radius: .375rem;
+            border-top-right-radius: .375rem;
+            border: none;
+            padding: .4rem;
+        }
+
+        /*main section*/
+        .main-card {
+            width:80%;
+            background-color: white;
+            margin: 0 auto;
+            border-radius: .5rem;
+            min-height: 60vh;
+            display: table
+        }
+
+        .main-card table {
+            margin: 0 auto;
+            padding: .5rem 0;
+        }
+
+        .main-card h2 {
+            padding: 1rem 0;
+            margin: 0;
+        }
+
+        .main-card h5 {
+            width: 20%;
+            padding: .9rem;
+            margin: 0 auto;
+            border-radius: .375rem;
+        }
+
+        .main-card input {
+            padding: 6px;
+            border: 1px solid grey;
+            border-radius: .375rem;
+        }
+
+        .main-card p:last-of-type {
+            padding-bottom: .5rem;
+        }
+
+        /*table*/
+        table {
+            background-color: #d2d7da;
+            border-bottom-left-radius: .375rem;
+            border-bottom-right-radius: .375rem;
+            border-collapse: collapse;
+        }
+
+        tbody tr:nth-of-type(odd) {
+            background-color: #babec1;
+            border-top:.6rem solid transparent;
+        }
+
+        tr {
+            border-top:.6rem solid #d2d7da;
+        }
+
+        td {
+            padding: .5rem;
+        }
+
+        tr:last-of-type td:last-of-type {
+            border-bottom-right-radius: .375rem;
+        }
+
+        tr:last-of-type td:first-of-type {
+            border-bottom-left-radius: .375rem;
+        }
+
+
+        /*anchor styles*/
+        a {
+            padding: .1rem .2rem;
+            background-color: limegreen;
+            color: white;
+            border-radius: .3rem;
+            transition: all .6s;
+        }
+
+        a:hover {
+            cursor: pointer;
+            background-color: green;
+        }
+
+        /*media queries*/
+        @media only screen and (max-width: 900px) {
+            a {
+                font-size: 0px;
+                background-color: transparent;
+            }
+
+            a:hover {
+            background-color:transparent;
+        }
+
+            a i {
+                font-size: 20px;
+                padding: .1rem .3rem;
+                background-color: limegreen;
+                border-radius: .3rem;
+                transition: .6s all;
+            }
+
+            a i:hover {
+                cursor: pointer;
+                background-color: green;
+            }
+
+        }
+
+        @media only screen and (max-width: 600px) {
+            tbody tr:nth-of-type(odd) {
+                border-top: none;
+            }
+
+            td {
+                padding: .1rem;
+            }
+
+           table {
+                width:100%;
+                font-size: .8rem;
+            }
+
+            a {
+                padding: 0;
+            }
+        }
