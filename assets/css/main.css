@@ -6,6 +6,7 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            background-color: #00000091;
         }
 
         .container {
@@ -29,7 +30,7 @@
             margin: 0;
             font-size: 4rem;
             color: #07047b;
-            text-shadow: 1px 2px 8px aliceblue;
+            text-shadow: 4px 2px 8px aliceblue;
         }
         
         .title-card h3 {
@@ -42,12 +43,18 @@
             border-top-right-radius: .375rem;
             border: none;
             padding: .4rem;
+            background-color: #ffffff94;
+        }
+
+        .title-card select:focus {
+            outline-color: transparent;
         }
 
         /*main section*/
         .main-card {
             width:80%;
-            background-color: white;
+            background-color: #00000091;
+            color: white;
             margin: 0 auto;
             border-radius: .5rem;
             min-height: 60vh;
@@ -57,6 +64,7 @@
         .main-card table {
             margin: 0 auto;
             padding: .5rem 0;
+            color: black;
         }
 
         .main-card h2 {
